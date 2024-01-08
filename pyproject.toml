@@ -1,11 +1,12 @@
 [tool.poetry]
 name = "speech2spikes"
-version = "1.0.0"
+version = "1.0.1"
 description = "Speech2Spikes: Efficient Audio Encoding Pipeline for Real-time Neuromorphic Systems"
 authors = ["Noah Pacik-Nelson <noah.pacik-nelson@accenture.com>"]
 homepage = "https://github.com/Accenture/speech2spikes"
 readme = "README.md"
 license = "Proprietary"
+exclude = ["tests"]
 
 [tool.poetry.dependencies]
 python = "^3.10"

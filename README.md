@@ -45,6 +45,12 @@ dl = torch.utils.data.DataLoader(
 )
 ```
 
+Notes
+-----
+The Speech2Spikes paper shows spikes as being separated into positive and negative channels however, this code does not separate the spikes this way, instead returning them as signed ints (+1, -1, and 0). We have not seen a decrease in accuracy by doing this and find that reducing the input dimensionality can significantly reduce the overall model size.  
+  
+Similarly, the cumulative sum feature described in the paper can be replicated using `S2S(cumsum=True)` but is disabled by default due to limited improvements in accuracy while drastically increasing the input dimensionality.
+
 License
 -------
 Speech2Spikes is made available under a proprietary license that permits using, copying, sharing, and making derivative works from Speech2Spikes and its source code for academics/non-commercial purposes only, as long as the above copyright notice and this permission notice are included in all copies of the software.

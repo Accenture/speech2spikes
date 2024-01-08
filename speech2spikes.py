@@ -50,7 +50,8 @@ class S2S:
             target. Defaults to None
     """
 
-    def __init__(self, device=None, labels=None):
+    def __init__(self, cumsum=False, device=None, labels=None):
+        self.cumsum = cumsum
         self.device = device
 
         self.labels = labels
@@ -104,7 +105,6 @@ class S2S:
                     provided, this will convert labels to indices.
 
         TODO:
-            Add support for cumulative sum of features
             Add support for single sample conversion
         """
         tensors, targets = [], []
@@ -117,6 +117,10 @@ class S2S:
 
         tensors = pad_sequence(tensors)
         tensors = self.transform(tensors)
+        if self.cumsum:
+            csum = torch.cumsum(tensors, dim=-1)
+            # Concatenate csum and tensors on mel channel dimension
+            tensors = torch.cat((csum, tensors), dim=2)
         tensors = torch.log(tensors)
         tensors = tensor_to_events(tensors, device=self.device)
 
